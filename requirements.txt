@@ -3,3 +3,5 @@ fastapi
 httpx
 openai
 uvicorn
+cachetools
+requests
