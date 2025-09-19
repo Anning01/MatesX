@@ -5,15 +5,15 @@
 ---
 
 ## 🎯 项目主旨
-
-**MatesX** 致力于构建一个**超轻量级、多端通用、高智能交互**的数字人对话系统，既支持玩家自定义自己的AI伙伴，也支持面向海量 C 端用户的超高并发数字人服务。
+- **支持个人玩家自定义自己的AI伙伴**
+- **支持面向海量 C 端用户的超高并发数字人服务**
 
 ### 三大核心目标：
 
 1. ✅ **大规模 C 端数字人对话管理**  
    支持高并发、低延迟、稳定可靠的对话服务，设计目标为普通服务器。
 
-2. ✅ **前沿的记忆、表情与动作管理**  
+2. ✅ **记忆、表情与动作管理**  
    次时代数字人驱动引擎，集成记忆引擎 + 实时情感解析 + 自由表情 & 动作驱动，让数字人“有记忆、有灵魂、有自由”。
 
 3. ✅ **桌面端、APP、小程序多端共用，超轻量级架构**  
@@ -46,7 +46,6 @@
 |-------------|------|------------|----------------------------------------|
 | Windows     | ✅    | electron   | <img src="preview/windows.jpg" width="120" />      |
 | macOS       | ✅    | electron   |                                        |
-| iOS app     | todo |            |                                        |
 | Android app | ✅    | webview    | <img src="preview/android.jpg" width="120" />      |
 | 微信小程序       | ✅    | webview    | <img src="preview/mini-program.jpg" width="120" /> |
 | Web         | ✅    | WebGL 渲染支持 | <img src="preview/web.jpg" width="120" />          |
@@ -60,21 +59,25 @@
 git clone https://github.com/kleinlee/MatesX.git
 cd MatesX
 pip install -r requirements.txt
+```
+部署对话语音模型云服务（alibaba dashscope）
+
+修改utils/dashscope.py 中的：
+```bash
+# 配置大模型专属接口
+DASHSCOPE_API_KEY = ""     # 请到阿里云百炼开通API-key
+DASHSCOPE_TOKEN_URL = "https://dashscope.aliyuncs.com/api/v1/tokens"
+DASHSCOPE_LLM_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+# 配置你的域名服务器（或仅在本地就用默认localhost）
+HOST_URL = "http://localhost:8000"
+```
+开启服务：
+```bash
 python main.py
 ```
 然后打开 http://localhost:8000/web/home.html 享用吧
 
-## 商用部署
-修改utils/dashscope.py 中的：
-```bash
-# 配置大模型专属接口
-DASHSCOPE_API_KEY = ""
-DASHSCOPE_TOKEN_URL = "https://dashscope.aliyuncs.com/api/v1/tokens"
-DASHSCOPE_LLM_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
-# 配置你的域名服务器
-HOST_URL = "http://localhost:8000"
-```
-### 更进一步
+### 高并发及云端同步
 - 升级为云端数据库
 - 资源放置到OSS
 
@@ -85,3 +88,4 @@ Apache License 2.0
 |  加我好友，请备注“进群”，拉你进去微信交流群。| 进入QQ群聊，分享看法和最新资讯。                                                                        |
 |-------------------|------------------------------------------------------------------------------------------|
 | ![微信交流群](https://github.com/user-attachments/assets/b1f24ebb-153b-44b1-b522-14f765154110) | ![QQ群聊](https://github.com/user-attachments/assets/29bfef3f-438a-4b9f-ba09-e1926d1669cb) |
+
