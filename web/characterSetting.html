@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改角色</title>
+    <link rel="icon" href="common/favicon.ico" type="image/x-icon">
+    <link href="css/material-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            background: #f8f8f8;
+            z-index: 10;
+        }
+
+        .nav-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .material-icons {
+            color: #ff3c64;
+            font-size: 20px;
+        }
+
+        .nav-button:hover {
+            background: #fff5f7;
+            transform: scale(1.05);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0 auto;
+        }
+
+        .create-btn {
+            background: linear-gradient(135deg, #ff7c7c, #ff5252);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 82, 82, 0.4);
+        }
+
+        .module {
+            background: white;
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .module:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .avatar-display {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2px;
+        }
+
+        .avatar-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            color: #ccc;
+            font-size: 40px;
+        }
+
+        .intimacy-badge {
+            position: absolute;
+            bottom: 2px;
+            right: calc(50% - 70px);
+            background: linear-gradient(135deg, #ff9db0, #ff7c7c);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(255, 125, 125, 0.3);
+        }
+
+        .intimacy-badge .material-icons {
+            color: white;
+            font-size: 14px;
+            margin-right: 4px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+        }
+
+        .input-label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-label .material-icons {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+
+        .input-field {
+            padding: 14px 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #ff9db0;
+            background: white;
+            box-shadow: 0 0 0 2px rgba(255, 82, 82, 0.1);
+        }
+
+        /* 下拉选择框样式 */
+        .voice-select-wrapper {
+            position: relative;
+        }
+
+        .voice-select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .voice-select-trigger:hover {
+            background: #f5f5f5;
+        }
+
+        .voice-select-trigger.open {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: #ff9db0;
+        }
+
+        .selected-voice-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .selected-voice-name {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .selected-voice-id {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .dropdown-arrow {
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .voice-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #eee;
+            border-top: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .voice-options.open {
+            display: block;
+        }
+
+        .voice-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .voice-option:last-child {
+            border-bottom: none;
+        }
+
+        .voice-option:hover {
+            background: #f9f9f9;
+        }
+
+        .voice-option.selected {
+            background: #fff5f7;
+        }
+
+        .voice-option-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .voice-option-name {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .voice-option-id {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .voice-option-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preview-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .preview-btn .material-icons {
+            font-size: 14px;
+            margin-right: 4px;
+        }
+
+        .textarea-container {
+            position: relative;
+        }
+
+        .textarea {
+            height: 240px;
+            resize: none;
+            width: 100%;
+            padding: 16px;
+            padding-bottom: 40px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: all 0.2s ease;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #ff9db0;
+            background: white;
+            box-shadow: 0 0 0 2px rgba(255, 82, 82, 0.1);
+        }
+
+        .word-count {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 13px;
+            color: #999;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .word-count.warning {
+            color: #ff5252;
+            font-weight: 500;
+        }
+
+        .character-setup {
+            flex-direction: column;
+        }
+
+        .memory-section {
+            margin-top: 10px;
+        }
+
+        .memory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .memory-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .memory-title .material-icons {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+
+        .memory-list {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 8px 16px;
+            border: 1px solid #eee;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .memory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .memory-item:last-child {
+            border-bottom: none;
+        }
+
+        .memory-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555;
+            padding-right: 10px;
+        }
+
+        .memory-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .memory-action-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .memory-action-btn:hover {
+            background: #f0f0f0;
+            color: #ff5252;
+        }
+
+        .memory-empty {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .edit-memory-btn {
+            background: #f8f8f8;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .edit-memory-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .edit-memory-btn .material-icons {
+            font-size: 16px;
+            margin-right: 4px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .edit-memory-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-cancel {
+            background: #f8f8f8;
+            border: 1px solid #eee;
+            color: #666;
+        }
+
+        .modal-cancel:hover {
+            background: #f0f0f0;
+        }
+
+        .modal-save {
+            background: linear-gradient(135deg, #ff7c7c, #ff5252);
+            border: none;
+            color: white;
+        }
+
+        .modal-save:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-bar">
+            <button class="nav-button back-btn" onclick="history.back()">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            <div class="title">修改角色</div>
+            <button class="create-btn" id="update-btn">保存</button>
+        </div>
+
+        <div class="module">
+            <div class="avatar-section">
+                <div class="avatar-display" id="avatar-display">
+                    <i class="material-icons avatar-placeholder">person</i>
+                </div>
+                <div class="intimacy-badge">
+                    <i class="material-icons">favorite</i>
+                    <span id="intimacy-level">Lv.0</span>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value" id="chat-count">128</div>
+                    <div class="stat-label">聊天次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="last-active">2天前</div>
+                    <div class="stat-label">上次互动</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="created-days">36天</div>
+                    <div class="stat-label">创建时间</div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">
+                    <i class="material-icons">badge</i>
+                    角色名称
+                </label>
+                <input type="text" class="input-field" id="name-input" placeholder="请输入角色名称">
+            </div>
+
+            <!-- 修改后的语音设置部分 -->
+            <div class="input-group">
+                <label class="input-label">
+                    <i class="material-icons">record_voice_over</i>
+                    声音设置
+                </label>
+                <div class="voice-select-wrapper">
+                    <div class="voice-select-trigger" id="voice-select-trigger">
+                        <div class="selected-voice-info">
+                            <div class="selected-voice-name" id="selected-voice-name">温柔女声</div>
+                            <div class="selected-voice-id" id="selected-voice-id">ID: vs1234567890</div>
+                        </div>
+                        <i class="material-icons dropdown-arrow">arrow_drop_down</i>
+                    </div>
+                    <div class="voice-options" id="voice-options">
+                        <!-- 语音选项将通过JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="input-group character-setup">
+                <label class="input-label">
+                    <i class="material-icons">edit</i>
+                    人物设定
+                </label>
+                <div class="textarea-container">
+                    <textarea id="character-desc" class="textarea" placeholder="描述角色的性格、背景故事、特殊能力等（建议200字以上）" maxlength="500"></textarea>
+                    <div id="word-counter" class="word-count">0/500</div>
+                </div>
+            </div>
+            <div class="memory-section">
+                <div class="memory-header">
+                    <div class="memory-title">
+                        <i class="material-icons">psychology</i>
+                        记忆碎片
+                    </div>
+                </div>
+                <div class="memory-list" id="memory-list">
+                    <div class="memory-empty" id="memory-empty">
+                        <i class="material-icons">inbox</i>
+                        <p>暂无记忆数据，开始聊天后会自动生成记忆总结</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑记忆模态框 -->
+    <div class="edit-memory-modal" id="edit-memory-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">添加记忆</div>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <textarea class="modal-input" id="memory-input" placeholder="请输入记忆内容..."></textarea>
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="modal-cancel">取消</button>
+                <button class="modal-btn modal-save" id="modal-save">保存</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/database.js"></script>
+    <script src="js/characterSetting.js"></script>
+</body>
+</html>

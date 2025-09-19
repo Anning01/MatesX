@@ -1,0 +1,183 @@
+        :root {
+            --primary-color: #FF385C;
+            --secondary-color: #FE2C55;
+            --bg-color: #FFFFFF;
+            --bg-soft: #f8f8f8;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666;
+            --border-color: #EBEBEB;
+        }
+
+.profile-card {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            /* padding-bottom: 12px; */
+        }
+
+        .headimg {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            margin-right: 16px;
+            background: linear-gradient(135deg, #FF6B6B, #FF385C);
+            box-shadow: 0 6px 12px rgba(255, 56, 92, 0.16);
+        }
+
+        .profile-info .nickname {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .vip-duration {
+            font-size: 14px;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        .quota-section {
+            padding: 0 0;
+        }
+
+        .quota-header {
+            display: flex;
+            justify-content: space-between;
+            margin: 6px;
+        }
+
+        .quota-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .recharge-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 56, 92, 0.16);
+        }
+
+        .progress-bar {
+            height: 8px;
+            margin: 6px;
+            margin-top: 12px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .settings-list {
+            list-style: none;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .icon {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin-right: 16px;
+        }
+
+        .item-text {
+            flex: 1;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .arrow {
+            color: var(--secondary-color);
+        }
+
+        .refresh-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .refresh-btn .material-icons {
+            font-size: 20px;
+        }
+        
+        .quota-items-horizontal {
+            margin: 6px;
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .quota-card {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+
+        .quota-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .quota-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quota-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            opacity: 0.9;
+        }
+
+        .quota-count {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }

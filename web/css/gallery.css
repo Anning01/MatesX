@@ -1,0 +1,161 @@
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    padding-bottom: 24px;
+}
+
+.gallery-item {
+    background: var(--bg-color);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    aspect-ratio: 0.8;
+    position: relative;
+}
+
+.gallery-item.failed-card {
+    border: 2px solid #ff4d4f;
+}
+
+/* 错误信息覆盖层 */
+.error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 2;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.error-icon {
+    font-size: 40px;
+    color: #ff4d4f;
+    margin-bottom: 8px;
+}
+
+.error-message {
+    font-size: 14px;
+    margin-bottom: 12px;
+    word-break: break-word;
+}
+
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
+.character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.character-name {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.0);
+    border-radius: 80%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.gallery-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn::after {
+    display: none;
+}
+
+.delete-btn .material-icons {
+    font-size: 26px; 
+    color: var(--bg-color);
+}
+
+.gallery-item.add-card {
+    background: #F8F9FA;
+    border: 2px dashed var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.add-icon {
+    font-size: 40px;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+/* 图片容器 */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 加载动画 */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3; /* 浅色背景 */
+    border-top: 4px solid #3498db; /* 蓝色旋转部分 */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* 旋转动画 */
+}
+
+@keyframes spin {
+    0% { 
+        transform: translate(-50%, -50%) rotate(0deg); 
+    }
+    100% { 
+        transform: translate(-50%, -50%) rotate(360deg); 
+    }
+}
+
+/* 禁用点击事件 */
+.gallery-item[style*="pointer-events: none"] {
+    cursor: not-allowed;
+}

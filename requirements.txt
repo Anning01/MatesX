@@ -1,0 +1,5 @@
+numpy
+fastapi
+httpx
+openai
+uvicorn

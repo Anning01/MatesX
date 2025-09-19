@@ -1,0 +1,81 @@
+:root {
+	--primary-color: #FF385C;
+	--secondary-color: #FE2C55;
+	--bg-color: #FFFFFF;
+	--bg-soft: #f8f8f8;
+	--text-primary: #1A1A1A;
+	--text-secondary: #666;
+	--border-color: #EBEBEB;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+body {
+	/* max-width: 450px; */
+	margin: 0 auto;
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+	min-height: 100vh;
+	background: var(--bg-color);
+}
+
+.nav-bar {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	/* max-width: 450px; */
+	left: 50%;
+	transform: translateX(-50%);
+	height: 64px;
+	background: var(--bg-color);
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	z-index: 100;
+	box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.06);
+	border-radius: 16px 16px 0 0;
+}
+
+.nav-item {
+	padding: 12px;
+	color: var(--text-secondary);
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	flex: 1;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 12px;
+	gap: 4px;
+}
+
+.nav-item.active {
+	color: var(--primary-color);
+	transform: translateY(-4px);
+}
+
+.nav-item .material-icons {
+	font-size: 24px;
+	margin-bottom: 2px;
+}
+
+.page-container {
+	padding: 24px 16px 24px;
+	display: none;
+	height: calc(100vh - 64px);
+	overflow-y: auto;
+}
+
+.page-active {
+	display: block;
+}
+
+.material-icons {
+	font-size: 18px;
+	color: #FF385C;
+}
