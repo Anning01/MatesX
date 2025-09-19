@@ -1,15 +1,15 @@
-from queue import Queue
-import logging
-import dashscope
+import asyncio
 import datetime
 import json
+import logging
 import time
-import base64
-from threading import Thread
-from utils.session_manager import user_locks, get_or_create_session
-import asyncio
 from openai import OpenAI
+from queue import Queue
+from threading import Thread
+
 from utils.dashscope import DASHSCOPE_API_KEY, DASHSCOPE_LLM_URL
+from utils.session_manager import user_locks, get_or_create_session
+
 _client = None
 def get_client():
     global _client
