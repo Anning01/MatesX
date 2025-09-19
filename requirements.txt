@@ -1,4 +1,6 @@
 numpy
+cachetools
+requests
 fastapi
 httpx
 openai

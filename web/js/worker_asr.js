@@ -4,7 +4,7 @@ importScripts('../js/paraformer_realtime_api.js');
 let paraformer = null;
 let isConnected = false;
 let audioQueue = [];
-let auth_url = "/api/generate_temp_token"
+let auth_url = "/generate_temp_token"
 // 处理主线程发送的消息
 self.onmessage = async function(event) {
     const data = event.data;
